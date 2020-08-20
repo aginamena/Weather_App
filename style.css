@@ -33,7 +33,7 @@ input{
   top : 20%;
   text-align: center;
 }
-#celcius, #Farenheit{
+#celcius, #Fahrenheit{
   position: fixed;
   top : 80%;
   height: 50px;
@@ -50,7 +50,7 @@ input{
 #celcius{
   left : 37%;
 }
-#Farenheit{
+#Fahrenheit{
   left : 47%;
 }
 span{

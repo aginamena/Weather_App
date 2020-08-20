@@ -2,12 +2,13 @@ import {Weather} from "./main.js";
 const search = document.querySelector("#search");
 const input = document.querySelector("input");
 const body = document.querySelector("body");
-const content = document.querySelector("#content");
+const fahrenheit = document.querySelector("#Fahrenheit");
 const celcius = document.querySelector("#celcius");
-const Farenheit = document.querySelector("#Farenheit");
+const content = document.querySelector("#content");
 const degC = document.querySelector("#degC");
 const degF = document.querySelector("#degF");
-var weatherTemp;
+var weatherApp;
+
 async function getWeatherReport(){
   let locationName = input.value;
       // we wait for the reponse to be back from the server
@@ -15,24 +16,26 @@ async function getWeatherReport(){
   let weatherReport = await apiCall.json();
   let weatherDescription = weatherReport.weather[0].main;
   let description = weatherReport.weather[0].description;
+  let main = weatherReport.main;
+  weatherApp = new Weather(main.temp, main.temp_min, main.temp_max, description, main.feels_like);
   displayBackground(weatherDescription);
-  main = weatherReport.main;
-  displayTemperatureInCelcuis(weatherReport.main, description);/*
+  displayTemperatureInCelcuis();
   celcius.style = "display:block";
-  Farenheit.style = "display:block";*/
+  fahrenheit.style = "display: block";
 }
 search.addEventListener("click", getWeatherReport);
 function displayBackground(weatherDescription){
   if(weatherDescription === "Drizzle" || weatherDescription === "Thunderstorm") weatherDescription = "rain";
   body.style.cssText = "background-image: url(../images/"+weatherDescription+".jpg);";
 }
-function displayTemperatureInCelcuis(main, description){
+
+function displayTemperatureInCelcuis(){
   content.textContent = ""; /* clearing up the content *?
   /* we have to convert the default kelvin temperature to celcius */
-  let temperature = Math.floor(main.temp - 273.15);
-  let max_temperature = Math.floor(main.temp_max - 273.15);
-  let min_temperature = Math.floor(main.temp_min - 273.15);
-  let feels_like_temperature =  Math.floor(main.feels_like - 273.15);
+  let temperature = Math.floor(weatherApp.get_temp() - 273.15);
+  let max_temperature = Math.floor(weatherApp.get_temp_max() - 273.15);
+  let min_temperature = Math.floor(weatherApp.get_temp_min() - 273.15);
+  let feels_like_temperature =  Math.floor(weatherApp.get_feels_like() - 273.15);
   let temp = document.createElement("div");
   let weatherInfo = document.createElement("div");
   let weatherDescription = document.createElement("div");
@@ -41,20 +44,20 @@ function displayTemperatureInCelcuis(main, description){
   temp.style.cssText = "font-size: 200px;";
   weatherInfo.textContent = max_temperature+degC.innerHTML + "/"+ min_temperature+degC.innerHTML +" Feels like "+ feels_like_temperature+degC.innerHTML;
   weatherInfo.style.cssText = "font-size: 90px;";
-  weatherDescription.textContent = description;
+  weatherDescription.textContent = weatherApp.get_description();
   weatherDescription.style.cssText = "font-size: 45px;";
   content.appendChild(temp);
   content.appendChild(weatherInfo);
   content.appendChild(weatherDescription);
 }
 
-function celciusToFarenheit(){
+function displayTemperatureInFahrenheit(){
   content.textContent = ""; /* clearing up the content *?
   /* we have to convert the default kelvin temperature to celcius */
-  let temperature = Math.floor((main.temp * 1.8) + 32);
-  let max_temperature = Math.floor((main.temp_max * 1.8) + 32);
-  let min_temperature = Math.floor((main.temp_min * 1.8) + 32);
-  let feels_like_temperature =  Math.floor((main.feels_like * 1.8 ) + 32);
+  let temperature = Math.floor((weatherApp.get_temp() * 1.8) - 459.67);
+  let max_temperature = Math.floor((weatherApp.get_temp_max() * 1.8) - 459.67);
+  let min_temperature = Math.floor((weatherApp.get_temp_min() * 1.8) - 459.67);
+  let feels_like_temperature =  Math.floor((weatherApp.get_feels_like() * 1.8 ) - 459.67);
   let temp = document.createElement("div");
   let weatherInfo = document.createElement("div");
   let weatherDescription = document.createElement("div");
@@ -63,9 +66,12 @@ function celciusToFarenheit(){
   temp.style.cssText = "font-size: 200px;";
   weatherInfo.textContent = max_temperature+degF.innerHTML + "/"+ min_temperature+degF.innerHTML +" Feels like "+ feels_like_temperature+degF.innerHTML;
   weatherInfo.style.cssText = "font-size: 90px;";
-  weatherDescription.textContent = description;
+  weatherDescription.textContent = weatherApp.get_description();
   weatherDescription.style.cssText = "font-size: 45px;";
   content.appendChild(temp);
   content.appendChild(weatherInfo);
   content.appendChild(weatherDescription);
 }
+
+fahrenheit.addEventListener("click", displayTemperatureInFahrenheit);
+celcius.addEventListener("click", displayTemperatureInCelcuis);

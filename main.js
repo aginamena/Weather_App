@@ -1,32 +1,26 @@
+/* temperature values are stored in kelvin */
+
 export class Weather{
-  constructor(temp, temp_mn, temp_max, description){
+  constructor(temp, temp_min, temp_max, description, feels_like){
     this.temp = temp;
     this.temp_min = temp_min;
     this.temp_max = temp_max;
     this.description = description;
+    this.feels_like = feels_like;
   }
-  get temp(){
-    return temp;
+  get_temp(){
+    return this.temp;
   }
-  get temp_max(){
-    return temp_max;
+  get_temp_max(){
+    return this.temp_max;
   }
-  get temp_min(){
-    return temp_min;
+  get_temp_min(){
+    return this.temp_min;
   }
-  get description(){
-    return description;
+  get_description(){
+    return this.description;
   }
-  set temp(newTemp){
-    this.temp = temp;
-  }
-  set temp(newTemp_Max){
-    this.temp = temp;
-  }
-  set temp_min(newTemp_Min){
-    this.temp_min = newTemp_Min;
-  }
-  set description(newDescription){
-    this.description = newDescription;
+  get_feels_like(){
+    return this.feels_like;
   }
 }
