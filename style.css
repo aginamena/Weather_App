@@ -14,7 +14,7 @@ input{
   margin-top: 20px;
 }
 
-button{
+#search{
   float : right;
   position : relative;
   right : -50px;
@@ -25,10 +25,34 @@ button{
   color : white;
   border: none;
   font-weight: bolder;
+  cursor: pointer;
 }
 #content{
   position : fixed;
-  left : 27%;
+  left : 18%;
   top : 20%;
   text-align: center;
+}
+#celcius, #Farenheit{
+  position: fixed;
+  top : 80%;
+  height: 50px;
+  width: 150px;
+  background-color: red;
+  color: white;
+  font-size: x-large;
+  border: none;
+  /* we don't want the buttons (celcius an Farenheit) to be shown
+  till the user enters a city or country */
+  display: none;
+  cursor:pointer;
+}
+#celcius{
+  left : 37%;
+}
+#Farenheit{
+  left : 47%;
+}
+span{
+  display: none;
 }
