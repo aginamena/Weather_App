@@ -1,0 +1,34 @@
+body{
+  /* The default image has to cover the page */
+  background-image: url(../images/defaultImage.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+input{
+  float : right;
+  position : relative;
+  left : -320px;
+  width: 250px;
+  height: 30px;
+  margin-top: 20px;
+}
+
+button{
+  float : right;
+  position : relative;
+  right : -50px;
+  margin-top: 20px;
+  height : 35.98px;
+  width: 90px;
+  background-color: red;
+  color : white;
+  border: none;
+  font-weight: bolder;
+}
+#content{
+  position : fixed;
+  left : 27%;
+  top : 20%;
+  text-align: center;
+}
