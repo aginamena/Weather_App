@@ -12,18 +12,22 @@ var weatherApp;
 async function getWeatherReport(){
   let locationName = input.value;
       // we wait for the reponse to be back from the server
-  let apiCall = await fetch("http://api.openweathermap.org/data/2.5/weather?q="+locationName+"&appid=40e234e2597df078968ac6ad5ed42be8");
-  let weatherReport = await apiCall.json();
-  let weatherDescription = weatherReport.weather[0].main;
-  let description = weatherReport.weather[0].description;
-  let main = weatherReport.main;
-  weatherApp = new Weather(main.temp, main.temp_min, main.temp_max, description, main.feels_like);
-  displayBackground(weatherDescription);
-  displayTemperatureInCelcuis();
-  celcius.style = "display:block";
-  fahrenheit.style = "display: block";
+  try{
+    let apiCall = await fetch("http://api.openweathermap.org/data/2.5/weather?q="+locationName+"&appid=40e234e2597df078968ac6ad5ed42be8");
+    let weatherReport = await apiCall.json();
+    let weatherDescription = weatherReport.weather[0].main;
+    let description = weatherReport.weather[0].description;
+    let main = weatherReport.main;
+    weatherApp = new Weather(main.temp, main.temp_min, main.temp_max, description, main.feels_like);
+    displayBackground(weatherDescription);
+    displayTemperatureInCelcuis();
+    celcius.style = "display:block";
+    fahrenheit.style = "display: block";
+  }catch{
+    alert("An Error occured");
+  }
 }
-search.addEventListener("click", getWeatherReport);
+
 function displayBackground(weatherDescription){
   if(weatherDescription === "Drizzle" || weatherDescription === "Thunderstorm") weatherDescription = "rain";
   body.style.cssText = "background-image: url(../images/"+weatherDescription+".jpg);";
@@ -75,3 +79,4 @@ function displayTemperatureInFahrenheit(){
 
 fahrenheit.addEventListener("click", displayTemperatureInFahrenheit);
 celcius.addEventListener("click", displayTemperatureInCelcuis);
+search.addEventListener("click", getWeatherReport);
