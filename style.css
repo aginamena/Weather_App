@@ -33,7 +33,7 @@ input{
   top : 20%;
   text-align: center;
 }
-#celcius, #Fahrenheit{
+#celsius, #Fahrenheit{
   position: fixed;
   top : 80%;
   height: 50px;
@@ -42,12 +42,12 @@ input{
   color: white;
   font-size: x-large;
   border: none;
-  /* we don't want the buttons (celcius an Farenheit) to be shown
+  /* we don't want the buttons (celsius an Farenheit) to be shown
   till the user enters a city or country */
   display: none;
   cursor:pointer;
 }
-#celcius{
+#celsius{
   left : 37%;
 }
 #Fahrenheit{

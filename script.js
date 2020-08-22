@@ -3,7 +3,7 @@ const search = document.querySelector("#search");
 const input = document.querySelector("input");
 const body = document.querySelector("body");
 const fahrenheit = document.querySelector("#Fahrenheit");
-const celcius = document.querySelector("#celcius");
+const celsius = document.querySelector("#celsius");
 const content = document.querySelector("#content");
 const degC = document.querySelector("#degC");
 const degF = document.querySelector("#degF");
@@ -21,7 +21,7 @@ async function getWeatherReport(){
     weatherApp = new Weather(main.temp, main.temp_min, main.temp_max, description, main.feels_like);
     displayBackground(weatherDescription);
     displayTemperatureInCelcuis();
-    celcius.style = "display:block";
+    celsius.style = "display:block";
     fahrenheit.style = "display: block";
   }catch{
     alert("An Error occured");
@@ -35,7 +35,7 @@ function displayBackground(weatherDescription){
 
 function displayTemperatureInCelcuis(){
   content.textContent = ""; /* clearing up the content *?
-  /* we have to convert the default kelvin temperature to celcius */
+  /* we have to convert the default kelvin temperature to celsius */
   let temperature = Math.floor(weatherApp.get_temp() - 273.15);
   let max_temperature = Math.floor(weatherApp.get_temp_max() - 273.15);
   let min_temperature = Math.floor(weatherApp.get_temp_min() - 273.15);
@@ -57,7 +57,6 @@ function displayTemperatureInCelcuis(){
 
 function displayTemperatureInFahrenheit(){
   content.textContent = ""; /* clearing up the content *?
-  /* we have to convert the default kelvin temperature to celcius */
   let temperature = Math.floor((weatherApp.get_temp() * 1.8) - 459.67);
   let max_temperature = Math.floor((weatherApp.get_temp_max() * 1.8) - 459.67);
   let min_temperature = Math.floor((weatherApp.get_temp_min() * 1.8) - 459.67);
@@ -78,5 +77,5 @@ function displayTemperatureInFahrenheit(){
 }
 
 fahrenheit.addEventListener("click", displayTemperatureInFahrenheit);
-celcius.addEventListener("click", displayTemperatureInCelcuis);
+celsius.addEventListener("click", displayTemperatureInCelcuis);
 search.addEventListener("click", getWeatherReport);
